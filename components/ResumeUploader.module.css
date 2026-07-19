@@ -1,0 +1,111 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dropzone {
+  position: relative;
+  border: 2px dashed rgba(124, 58, 237, 0.35);
+  border-radius: 20px;
+  padding: 52px 40px;
+  background: rgba(124, 58, 237, 0.04);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+  user-select: none;
+}
+
+.dropzone:hover {
+  border-color: rgba(124, 58, 237, 0.7);
+  background: rgba(124, 58, 237, 0.08);
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.15);
+}
+
+.dragOver {
+  border-color: #a855f7;
+  background: rgba(124, 58, 237, 0.12);
+  box-shadow: 0 0 60px rgba(124, 58, 237, 0.25);
+  transform: scale(1.01);
+}
+
+.loading {
+  cursor: not-allowed;
+  border-color: rgba(37, 99, 235, 0.5);
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.success {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.15);
+}
+
+.fileInput {
+  display: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  color: rgba(124, 58, 237, 0.6);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.dropzone:hover .icon {
+  color: #a855f7;
+  transform: translateY(-4px);
+}
+
+.primaryText {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.secondaryText {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.fileName {
+  font-size: 0.8125rem;
+  color: var(--purple-light);
+  background: rgba(124, 58, 237, 0.1);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.statusText {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  margin: 0 auto;
+}
+
+.successIcon {
+  font-size: 2.5rem;
+  color: #10b981;
+  line-height: 1;
+}
+
+.error {
+  font-size: 0.875rem;
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-align: center;
+}
