@@ -13,12 +13,15 @@ const SORT_OPTIONS = [
   { value: 'salary', label: 'Highest Salary' },
 ];
 
+const ITEMS_PER_PAGE = 6;
+
 export default function JobsPage() {
   const router = useRouter();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [filter, setFilter] = useState<JobFilter>({ remote: null, location: '', minMatch: 0 });
   const [sort, setSort] = useState('match');
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -33,6 +36,11 @@ export default function JobsPage() {
     setJobs(JSON.parse(storedJobs));
     setProfile(JSON.parse(storedProfile));
   }, [router]);
+
+  // Reset to page 1 whenever filters or sort change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter, sort]);
 
   const filtered = useMemo(() => {
     let result = [...jobs];
@@ -55,6 +63,10 @@ export default function JobsPage() {
     return result;
   }, [jobs, filter, sort]);
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedJobs = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
   const refreshJobs = async () => {
     if (!profile) return;
     setLoading(true);
@@ -67,6 +79,7 @@ export default function JobsPage() {
       const data = await res.json();
       setJobs(data.jobs);
       localStorage.setItem('ss_jobs', JSON.stringify(data.jobs));
+      setCurrentPage(1);
     } catch {
       // silent fail
     } finally {
@@ -234,14 +247,52 @@ export default function JobsPage() {
                 </div>
               ) : (
                 <>
-                  <p className={styles.resultCount}>
-                    {filtered.length} result{filtered.length !== 1 ? 's' : ''} found
-                  </p>
+                  <div className={styles.resultsHeader}>
+                    <p className={styles.resultCount}>
+                      Showing {startIndex + 1}–{Math.min(startIndex + ITEMS_PER_PAGE, filtered.length)} of {filtered.length} jobs
+                    </p>
+                  </div>
+
                   <div className={styles.jobsGrid}>
-                    {filtered.map((job, i) => (
+                    {paginatedJobs.map((job, i) => (
                       <JobCard key={job.id} job={job} index={i} />
                     ))}
                   </div>
+
+                  {/* ─── Pagination Controls ─── */}
+                  {totalPages > 1 && (
+                    <div className={styles.pagination}>
+                      <button
+                        className="btn btn-ghost btn-sm"
+                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        aria-label="Previous Page"
+                      >
+                        ← Prev
+                      </button>
+
+                      <div className={styles.pageNumbers}>
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                          <button
+                            key={pageNum}
+                            className={`${styles.pageBtn} ${currentPage === pageNum ? styles.activePage : ''}`}
+                            onClick={() => setCurrentPage(pageNum)}
+                          >
+                            {pageNum}
+                          </button>
+                        ))}
+                      </div>
+
+                      <button
+                        className="btn btn-ghost btn-sm"
+                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        aria-label="Next Page"
+                      >
+                        Next →
+                      </button>
+                    </div>
+                  )}
                 </>
               )}
             </section>
