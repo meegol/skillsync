@@ -134,7 +134,7 @@ export async function fetchAllMatchedJobs(profile: UserProfile): Promise<Job[]> 
     ];
 
     phSampleJobs.forEach((job, idx) => {
-      const { score, matched } = calculateMatchScore(job, profile.skills);
+      const { score, matched } = calculateMatchScore({ title: job.title, description: job.desc }, profile.skills);
       combinedJobs.push({
         id: `ph-sample-${idx}`,
         title: job.title,
