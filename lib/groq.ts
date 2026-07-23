@@ -1,10 +1,6 @@
 import Groq from 'groq-sdk';
 import type { UserProfile } from '@/types';
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 const SYSTEM_PROMPT = `You are an expert resume parser. Your task is to extract structured information from resume text.
 Return ONLY valid JSON with exactly this structure — no markdown, no extra text, just JSON:
 {
@@ -23,6 +19,9 @@ Rules:
 - Never return null values, use empty strings or 0 instead`;
 
 export async function parseResumeWithGroq(resumeText: string): Promise<UserProfile> {
+  const apiKey = process.env.GROQ_API_KEY || 'dummy_build_key';
+  const groq = new Groq({ apiKey });
+
   const completion = await groq.chat.completions.create({
     model: 'llama-3.1-8b-instant',
     messages: [
