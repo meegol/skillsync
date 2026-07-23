@@ -1,5 +1,7 @@
 # SkillSync
 
+> **Live Demo:** [https://skillsync-ph.vercel.app](https://skillsync-ph.vercel.app)
+
 A job matching web app that parses your resume (PDF), extracts your skills and experience, and matches you against live remote & local job listings.
 
 ## Why I Built This
