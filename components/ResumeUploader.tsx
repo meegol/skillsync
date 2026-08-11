@@ -87,7 +87,7 @@ export default function ResumeUploader() {
   const statusLabels: Record<Status, string> = {
     idle: 'Drop your resume here',
     reading: 'Reading PDF…',
-    parsing: 'AI is analyzing your resume…',
+    parsing: 'Parsing resume skills…',
     done: 'Done! Redirecting…',
     error: 'Try again',
   };

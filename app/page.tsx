@@ -12,18 +12,18 @@ const ParticleBackground = dynamic(() => import('@/components/ParticleBackground
 const STEPS = [
   {
     icon: '📄',
-    title: 'Upload Your Resume',
-    desc: 'Drop your PDF resume. We extract text instantly in your browser — nothing is stored without your permission.',
+    title: 'Upload Resume',
+    desc: 'Drop your PDF resume. Text is extracted directly in your browser without saving raw documents.',
   },
   {
-    icon: '🤖',
-    title: 'AI Parses Your Skills',
-    desc: 'Llama 3.1 reads your resume and builds a rich skill & experience profile in seconds.',
+    icon: '🧠',
+    title: 'Extract Profile & Skills',
+    desc: 'The app structures your tech stack, job title, and experience into a clean searchable profile.',
   },
   {
     icon: '🎯',
-    title: 'Get Matched Jobs',
-    desc: 'We query live job boards and rank every listing by how well it matches your unique profile.',
+    title: 'Match Live Listings',
+    desc: 'Queries live job feeds and scores each posting based on skill keyword overlap.',
   },
 ];
 
@@ -32,7 +32,6 @@ export default function LandingPage() {
     <div className={styles.page}>
       <ParticleBackground />
 
-      {/* Background orbs */}
       <div className={`orb orb-purple ${styles.orb1}`} />
       <div className={`orb orb-blue ${styles.orb2}`} />
       <div className={`orb orb-cyan ${styles.orb3}`} />
@@ -43,17 +42,16 @@ export default function LandingPage() {
       <section className={styles.hero}>
         <div className="container-sm">
           <div className={`badge badge-purple ${styles.heroBadge} animate-fade-in`}>
-            ⚡ Powered by Llama 3.1 + Adzuna API
+            Skill Matching & Resume Scanner
           </div>
 
           <h1 className={`${styles.headline} animate-fade-in-up delay-100`}>
-            Your Dream Job,{' '}
-            <span className="text-gradient">Synced to Your Skills</span>
+            Find Remote & Local Jobs{' '}
+            <span className="text-gradient">Matched To Your Resume</span>
           </h1>
 
           <p className={`${styles.subheadline} animate-fade-in-up delay-200`}>
-            Upload your resume once. AI extracts your skills, experience, and goals —
-            then surfaces the most relevant opportunities from across the web.
+            Upload your resume PDF to extract your skills and instantly rank live job postings by relevance score.
           </p>
 
           <div className={`${styles.uploaderWrapper} animate-fade-in-up delay-300`}>
@@ -61,7 +59,7 @@ export default function LandingPage() {
           </div>
 
           <p className={`${styles.hint} animate-fade-in-up delay-400`}>
-            🔒 Your resume is processed locally in your browser. We never share your data.
+            PDF files are parsed in-browser using pdfjs-dist.
           </p>
         </div>
       </section>
@@ -71,10 +69,10 @@ export default function LandingPage() {
         <div className="container">
           <div className={styles.statsGrid}>
             {[
-              { value: '1M+', label: 'Jobs Indexed' },
-              { value: '< 10s', label: 'Average Match Time' },
-              { value: '25+', label: 'Countries Supported' },
-              { value: '100%', label: 'Free to Use' },
+              { value: 'Multi-Source', label: 'Live API Feeds' },
+              { value: '< 5s', label: 'Resume Parse Time' },
+              { value: 'Global & PH', label: 'Remote Opportunities' },
+              { value: '100%', label: 'Free & Open Source' },
             ].map((s, i) => (
               <div key={i} className={`${styles.statCard} glass-card animate-fade-in-up`} style={{ animationDelay: `${i * 80}ms` }}>
                 <span className={styles.statValue}>{s.value}</span>
@@ -91,7 +89,7 @@ export default function LandingPage() {
           <h2 className={`${styles.sectionTitle} animate-fade-in-up`}>
             How <span className="text-gradient">SkillSync</span> Works
           </h2>
-          <p className={styles.sectionSub}>Three steps between you and your perfect job.</p>
+          <p className={styles.sectionSub}>Simple workflow from PDF upload to ranked job matches.</p>
 
           <div className={styles.stepsGrid}>
             {STEPS.map((step, i) => (
@@ -115,18 +113,16 @@ export default function LandingPage() {
         <div className="container-sm">
           <div className={`${styles.ctaCard} glass-card`}>
             <h2 className={styles.ctaTitle}>
-              Ready to find your{' '}
-              <span className="text-gradient">perfect match?</span>
+              Test with your <span className="text-gradient">resume</span>
             </h2>
             <p className={styles.ctaDesc}>
-              Join thousands of professionals who found their next role with SkillSync.
-              Upload your resume and get matched in under 30 seconds.
+              Upload a PDF to extract your skills and see matching job openings.
             </p>
             <button
               className="btn btn-primary btn-lg animate-pulse-glow"
               onClick={() => document.getElementById('resume-upload-zone')?.click()}
             >
-              Upload Resume — It's Free
+              Upload Resume PDF
             </button>
           </div>
         </div>
@@ -138,7 +134,7 @@ export default function LandingPage() {
           <div className={styles.footerInner}>
             <span className={styles.footerLogo}>⚡ SkillSync</span>
             <span className={styles.footerText}>
-              Built with Next.js · Groq AI · Adzuna API · Deployed on Vercel
+              Next.js 15 · Groq · Supabase · Vercel
             </span>
           </div>
         </div>
